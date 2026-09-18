@@ -1,0 +1,58 @@
+ 
+
+
+#--- Watershed sort
+gcc -O3 -o bin/watershed_sort    src/watershed_sort/watershed_sort.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel2.c src/lib/pixel3.c src/watershed_sort/src/water_functions.c src/lib/find_minima.c -lm
+
+gcc -O3 -o bin/watershed_sort_float    src/watershed_sort/watershed_sort_float.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel2.c src/lib/pixel3.c src/watershed_sort/src/water_functions_float.c src/lib/find_minima.c -lm
+
+#--- Watershed flood
+gcc -O3 -o bin/watershed_flood  src/watershed_flood/watershed_flood.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel2.c src/lib/pixel3.c src/lib/get_closest.c src/watershed_flood/src/water_functions_uphill.c  src/lib/find_minima.c -lm
+
+#--- Watershed flood (float)
+gcc -O3 -o bin/watershed_flood_float  src/watershed_flood/watershed_flood_float.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel2.c src/lib/pixel3.c src/watershed_flood/src/water_functions_uphill_07.c  src/lib/find_minima.c src/lib/get_closest.c -lm
+
+#--- Watershed flood 2D
+gcc -O3 -o bin/watershed_flood_2d  src/watershed_flood_2d/watershed_flood_2d.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel2.c src/lib/pixel3.c src/watershed_flood_2d/src/water_functions_uphill.c  src/lib/find_minima.c src/lib/get_closest.c -lm
+
+#--- Watershed flood_fix_spine (double)
+gcc -O3 -o bin/watershed_flood_fix_spine  src/watershed_flood_fix_spine/watershed_flood_fix_spine.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel3.c src/watershed_flood_fix_spine/src/watershed_spine.c -lm
+
+#--- Watershed flood_fix_spine (float)
+gcc -O3 -o bin/watershed_flood_fix_spine_float  src/watershed_flood_fix_spine/watershed_flood_fix_spine_float.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel3.c src/watershed_flood_fix_spine/src/watershed_spine_07.c -lm
+
+#--- Watershed to spine
+gcc -O3 -o bin/watershed_to_spine  src/watershed_to_spine/watershed_to_spine.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel3.c src/watershed_to_spine/src/count_adjacent_voids_07.c -lm
+
+#--- Compute the number of regions adjacent to a given pixel including the pixel itself
+gcc -O3 -o bin/count_voxel_degree  src/watershed_to_spine/count_voxel_degree.c  src/lib/io_files.c src/lib/numeric.c src/lib/pixel3.c src/watershed_to_spine/src/count_adjacent_regions.c -lm
+
+#--- Merge watershed_regions (incomplete watershed)
+gcc -O3 -o bin/merge_watershed_regions  src/merge_watershed_regions/merge_watershed_regions.c src/lib/io_files.c src/lib/numeric.c src/lib/pixel2.c src/lib/pixel3.c  src/merge_watershed_regions/src/water_hierarchy.c src/lib/find_minima.c -lm
+
+#--- Merge watershed_regions with watershed transform
+gcc -O3 -o bin/merge_voids_watershed src/merge_watershed_regions/merge_voids_watershed.c src/lib/io_files.c src/lib/numeric.c src/lib/pixel2.c src/lib/pixel3.c src/merge_watershed_regions/src/water_hierarchy.c src/lib/find_minima.c -lm
+
+#--- Compute filament catalogs
+gcc -O3 -o  bin/spine_filament_catalog src/spine_catalogs/spine_filament_catalog.c src/lib/io_files.c src/lib/numeric.c src/lib/pixel3.c src/spine_catalogs/src/get_filament_groups.c -lm
+
+#--- Compute wall catalogs
+gcc -O3 -o  bin/spine_wall_catalog src/spine_catalogs/spine_wall_catalog.c src/lib/io_files.c src/lib/numeric.c src/lib/pixel3.c src/spine_catalogs/src/get_wall_groups.c -lm
+
+#--- Make Hessian
+gcc -O3 -o bin/hessian_simple_double src/util/hessian/hessian_simple_double.c src/lib/io_files.c
+gcc -O3 -o bin/hessian_simple_float  src/util/hessian/hessian_simple_float.c src/lib/io_files.c
+#gcc -O3 -o fft_smooth_hessian        src/util/hessian/fft_smooth_hessian.c fourn.c nrutil.c rlft3.c -lm
+
+#--- Median filter
+gcc -O3 -o bin/median_filter_omp_float src/util/median_filtering/median_filter_omp_float.c src/util/median_filtering/src/remove_peaks_omp.c src/lib/pixel3.c src/lib/io_files.c -D_REENTRANT -lm -fopenmp
+
+#--- Fix NAN and zeros
+gcc -O3 -o bin/fix_nan_mean_filter src/util/median_filtering/fix_nan_mean_filter.c src/util/median_filtering/src/remove_peaks_omp.c src/lib/pixel3.c src/lib/io_files.c -D_REENTRANT -lm -fopenmp
+
+gcc -O3 -o bin/spine_erode src/util/mat_morph/spine_erode.c src/util/mat_morph/src/mat_morphology.c src/lib/pixel3.c src/lib/io_files.c -D_REENTRANT -lm -fopenmp
+gcc -O3 -o bin/spine_dilate src/util/mat_morph/spine_dilate.c src/util/mat_morph/src/mat_morphology.c src/lib/pixel3.c src/lib/io_files.c -D_REENTRANT -lm -fopenmp
+gcc -O3 -o bin/spine_dilate_regions src/util/mat_morph/spine_dilate_regions.c src/util/mat_morph/src/mat_morphology.c src/lib/pixel3.c src/lib/io_files.c -D_REENTRANT -lm -fopenmp
+
+#--- Distance transforms
+gcc -O3 -o bin/compute_distances_spine_euclidean src/util/distances_grid/compute_distances_spine_euclidean.c src/lib/io_files.c src/util/distances_grid/get_euclidean_distance.c src/lib/pixel3.c src/lib/numeric.c -lm
